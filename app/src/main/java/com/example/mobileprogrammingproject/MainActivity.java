@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         // Get the user's email and save it to the database
-        reference = FirebaseDatabase.getInstance().getReference("users").child(user.getUid()).child("data").child("email");
+        reference = FirebaseDatabase.getInstance().getReference("users").child(user.getUid()).child("data");
 
         reference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
