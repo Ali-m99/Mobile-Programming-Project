@@ -86,6 +86,6 @@ public class MainActivity extends AppCompatActivity {
 
     // Method to save email to the database
     private void saveEmailToDatabase(DatabaseReference reference, String email) {
-        reference.child("data").child("email").setValue(email);
+        reference.child("email").setValue(email);
     }
 }
