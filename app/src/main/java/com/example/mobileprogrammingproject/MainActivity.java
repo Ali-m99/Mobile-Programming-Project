@@ -10,6 +10,8 @@ import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -30,13 +32,19 @@ public class MainActivity extends AppCompatActivity {
         textView = findViewById(R.id.user_details);
         user = auth.getCurrentUser();
 
+        DatabaseReference reference;
+
         if (user == null){
             Intent intent = new Intent(getApplicationContext(), Login.class);
             startActivity(intent);
             finish();
         }
-        else{
-            textView.setText(user.getEmail());
+
+        // Get the user's email and save it to the database
+        reference = FirebaseDatabase.getInstance().getReference("users").child(user.getUid()).child("data").child("email");
+
+        if (reference.getKey() == null){
+            reference.setValue(user.getEmail());
         }
 
         button.setOnClickListener(new View.OnClickListener() {
