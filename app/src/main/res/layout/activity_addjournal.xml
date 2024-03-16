@@ -16,7 +16,7 @@
 <!--        android:layout_height="match_parent"-->
 <!--        android:orientation="vertical"-->
 <!--        android:gravity="center"-->
-<!--        tools:context=".MainActivity">-->
+<!--        tools:context=".MainActivity"/>-->
 
 <!-- UNCOMMENT THIS TO USE THE DESIGN FEATURE OTHERWISE YOU WONT SEE WHAT YOU'RE DRAGGING TO THE SCREEN -->
 <!-- COMMENT OUT THIS CONSTRAINT LAYOUT BEFORE RUNNING THE APP -->
@@ -29,19 +29,61 @@
         android:gravity="center"
         tools:context=".MainActivity">
 
-        <TextView
-            android:id="@+id/user_details"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Hello World!"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+    <TextView
+        android:id="@+id/user_details"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/create_new_journal_entry"
+        android:textSize="34sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.051" />
+
+    <Button
+        android:id="@+id/submit_journal_entry"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/submit"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/new_journal"
+        app:layout_constraintVertical_bias="0.342" />
+
+    <EditText
+        android:id="@+id/editTextText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:ems="10"
+        android:hint="@string/enter_journal_title"
+        android:inputType="text"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/user_details"
+        app:layout_constraintVertical_bias="0.029" />
+
+    <EditText
+        android:id="@+id/new_journal"
+        android:layout_width="352dp"
+        android:layout_height="230dp"
+        android:ems="10"
+        android:hint="@string/journal_here"
+        android:inputType="text"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.491"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.467" />
 
 
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
 <!-- COMMENT THIS BLOCK TO USE THE DESIGN FEATURE -->
 <!-- UNCOMMENT THIS BLOCK BEFORE RUNNING THE APP -->

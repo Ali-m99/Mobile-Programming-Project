@@ -11,4 +11,8 @@
     <string name="Welcome">Welcome</string>
     <string name="nav_open">Open</string>
     <string name="nav_close">Close</string>
+    <string name="create_new_journal_entry">Create New Journal Entry</string>
+    <string name="journal_here">Journal Here</string>
+    <string name="submit">Submit</string>
+    <string name="enter_journal_title">Enter Journal Title</string>
 </resources>
