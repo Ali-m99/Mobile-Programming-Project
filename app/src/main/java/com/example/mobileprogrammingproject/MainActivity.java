@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.ImageButton;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -19,6 +20,7 @@ import com.google.firebase.database.ValueEventListener;
 public class MainActivity extends BaseActivity {
     FirebaseAuth auth;
     FirebaseUser user;
+    ImageButton addJournal;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +30,9 @@ public class MainActivity extends BaseActivity {
         // Firebase authentication
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
+
+        // ImageButton to add a journal
+        addJournal = findViewById(R.id.add_journal_button);
 
 
         DatabaseReference reference;
@@ -59,6 +64,12 @@ public class MainActivity extends BaseActivity {
                 // Handle potential errors
                 Log.e(TAG, "Database Error: " + databaseError.getMessage());
             }
+        });
+
+        // ImageButton to add a journal
+        addJournal.setOnClickListener(v -> {
+            Intent intent = new Intent(getApplicationContext(), AddJournal.class);
+            startActivity(intent);
         });
     }
 
