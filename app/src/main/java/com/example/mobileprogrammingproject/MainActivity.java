@@ -7,9 +7,6 @@ import androidx.annotation.NonNull;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -21,8 +18,6 @@ import com.google.firebase.database.ValueEventListener;
 
 public class MainActivity extends BaseActivity {
     FirebaseAuth auth;
-    Button button;
-    TextView textView;
     FirebaseUser user;
 
     @Override
@@ -34,9 +29,6 @@ public class MainActivity extends BaseActivity {
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
 
-        // Logout button and user details
-        button = findViewById(R.id.logout);
-        textView = findViewById(R.id.user_details);
 
         DatabaseReference reference;
 
@@ -66,17 +58,6 @@ public class MainActivity extends BaseActivity {
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 // Handle potential errors
                 Log.e(TAG, "Database Error: " + databaseError.getMessage());
-            }
-        });
-
-
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FirebaseAuth.getInstance().signOut();
-                Intent intent = new Intent(getApplicationContext(), Login.class);
-                startActivity(intent);
-                finish();
             }
         });
     }
