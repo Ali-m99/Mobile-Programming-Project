@@ -6,7 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-public class AddJournal extends AppCompatActivity {
+public class AddJournal extends BaseActivity {
 
     DatabaseReference reference;
 
