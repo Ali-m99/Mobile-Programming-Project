@@ -50,11 +50,11 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/new_journal"
+            app:layout_constraintTop_toBottomOf="@+id/journal_body"
             app:layout_constraintVertical_bias="0.342" />
 
         <EditText
-            android:id="@+id/editTextText"
+            android:id="@+id/journal_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="40dp"
@@ -66,10 +66,11 @@
             app:layout_constraintHorizontal_bias="0.497"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/user_details"
-            app:layout_constraintVertical_bias="0.029" />
+            app:layout_constraintVertical_bias="0.029"
+            android:autofillHints="" />
 
         <EditText
-            android:id="@+id/new_journal"
+            android:id="@+id/journal_body"
             android:layout_width="352dp"
             android:layout_height="230dp"
             android:ems="10"
@@ -81,7 +82,8 @@
             app:layout_constraintHorizontal_bias="0.491"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.467" />
+            app:layout_constraintVertical_bias="0.467"
+            android:autofillHints="" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

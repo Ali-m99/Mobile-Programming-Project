@@ -20,6 +20,7 @@ import com.google.firebase.database.ValueEventListener;
 public class MainActivity extends BaseActivity {
     FirebaseAuth auth;
     FirebaseUser user;
+    DatabaseReference reference;
     ImageButton addJournal;
 
     @Override
@@ -33,9 +34,6 @@ public class MainActivity extends BaseActivity {
 
         // ImageButton to add a journal
         addJournal = findViewById(R.id.add_journal_button);
-
-
-        DatabaseReference reference;
 
         if (user == null){
             Intent intent = new Intent(getApplicationContext(), Login.class);
