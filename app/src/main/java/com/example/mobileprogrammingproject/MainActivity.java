@@ -3,11 +3,19 @@ package com.example.mobileprogrammingproject;
 import static android.content.ContentValues.TAG;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.View;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.ScrollView;
+import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -17,11 +25,15 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.Map;
+
 public class MainActivity extends BaseActivity {
     FirebaseAuth auth;
     FirebaseUser user;
     DatabaseReference reference;
+    DatabaseReference journalReference;
     ImageButton addJournal;
+    ScrollView scrollView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +56,9 @@ public class MainActivity extends BaseActivity {
         // Get the user's email and save it to the database
         reference = FirebaseDatabase.getInstance().getReference("users").child(user.getUid()).child("data");
 
+        // Get the user's journal entries
+        journalReference = FirebaseDatabase.getInstance().getReference("users").child(user.getUid()).child("data").child("journal");
+
         reference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -54,6 +69,80 @@ public class MainActivity extends BaseActivity {
                 } else {
                     // User node already exists, handle accordingly (optional)
                     System.out.println("User node already exists");
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                // Handle potential errors
+                Log.e(TAG, "Database Error: " + databaseError.getMessage());
+            }
+        });
+
+        // Populate the ScrollView with the user's journal entries
+        journalReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                // Get a reference to the LinearLayout container inside ScrollView
+                LinearLayout linearLayout = findViewById(R.id.linear_layout_container);
+
+                // Clear existing views before adding new ones
+                linearLayout.removeAllViews();
+
+                // Loop through the journal entries
+                for (DataSnapshot journalSnapshot : dataSnapshot.getChildren()) {
+                    // Get the journal entry as a Map
+                    Map<String, Object> entry = (Map<String, Object>) journalSnapshot.getValue();
+
+                    // Get the title of the journal entry
+                    assert entry != null;
+                    String title = (String) entry.get("title");
+                    String body = (String) entry.get("body");
+
+                    // For each journal entry, create a new CardView
+                    CardView cardView = new CardView(MainActivity.this);
+
+                    // Set some properties of the CardView
+                    cardView.setRadius(50);  // In pixels
+                    cardView.setContentPadding(0, 200, 0, 200);
+                    cardView.setClickable(true);
+
+                    // Create a new TextView to put in the CardView
+                    TextView textView = new TextView(MainActivity.this);
+                    textView.setLayoutParams(new CardView.LayoutParams(
+                            CardView.LayoutParams.MATCH_PARENT,
+                            CardView.LayoutParams.WRAP_CONTENT));
+                    textView.setText(title);  // Set the text to the journal entry's title
+                    textView.setGravity(Gravity.CENTER);
+                    textView.setTextSize(30);
+                    textView.setAllCaps(true);
+                    textView.setTextColor(Color.BLACK);
+                    textView.setTypeface(null, Typeface.BOLD);
+
+                    cardView.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent intent = new Intent(getApplicationContext(), JournalActivity.class);
+                            intent.putExtra("title", title);
+                            intent.putExtra("body", body);
+                            startActivity(intent);
+                        }
+                    });
+
+                    // Add the TextView to the CardView
+                    cardView.addView(textView);
+
+                    // Create new layout parameters for the CardView
+                    LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
+                            LinearLayout.LayoutParams.MATCH_PARENT,
+                            LinearLayout.LayoutParams.WRAP_CONTENT);
+
+                    // Set margins (left, top, right, bottom)
+                    int margin = getResources().getDimensionPixelSize(R.dimen.cardview_margin);
+                    layoutParams.setMargins(margin, margin, margin, margin);
+
+                    // Add the CardView to the LinearLayout with the layout parameters
+                    linearLayout.addView(cardView, layoutParams);
                 }
             }
 
