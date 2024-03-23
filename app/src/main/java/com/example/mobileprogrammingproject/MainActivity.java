@@ -33,7 +33,6 @@ public class MainActivity extends BaseActivity {
     DatabaseReference reference;
     DatabaseReference journalReference;
     ImageButton addJournal;
-    ScrollView scrollView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -125,6 +124,7 @@ public class MainActivity extends BaseActivity {
                             Intent intent = new Intent(getApplicationContext(), JournalActivity.class);
                             intent.putExtra("title", title);
                             intent.putExtra("body", body);
+                            intent.putExtra("journalId", journalSnapshot.getKey());
                             startActivity(intent);
                         }
                     });
