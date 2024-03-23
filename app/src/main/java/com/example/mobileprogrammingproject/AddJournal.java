@@ -1,5 +1,6 @@
 package com.example.mobileprogrammingproject;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
@@ -42,9 +43,17 @@ public class AddJournal extends BaseActivity {
         button.setOnClickListener(v -> {
             String title = journalTitle.getText().toString();
             String body = journalBody.getText().toString();
-            saveJournalToDatabase(reference, title, body);
-            toast = Toast.makeText(getApplicationContext(), "Journal entry saved!", Toast.LENGTH_SHORT);
-            toast.show();
+
+            if (title.isEmpty() || body.isEmpty()) {
+                toast = Toast.makeText(getApplicationContext(), "Title or body cannot be empty!", Toast.LENGTH_SHORT);
+                toast.show();
+            } else {
+                saveJournalToDatabase(reference, title, body);
+                toast = Toast.makeText(getApplicationContext(), "Journal entry saved!", Toast.LENGTH_SHORT);
+                toast.show();
+                Intent intent = new Intent(this, BaseActivity.class);
+                startActivity(intent);
+            }
         });
     }
 
