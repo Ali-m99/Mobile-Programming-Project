@@ -39,7 +39,13 @@
             android:name=".JournalActivity"
             android:theme="@style/Base.Theme.AppCompat.Light.DarkActionBar"
             android:label="" />
-        <activity android:name=".MyAccount"
+        <activity
+            android:name=".MyAccount"
+            android:theme="@style/Base.Theme.AppCompat.Light.DarkActionBar"
+            android:label="" />
+
+        <activity
+            android:name=".Setting"
             android:theme="@style/Base.Theme.AppCompat.Light.DarkActionBar"
             android:label="" />
 

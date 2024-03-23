@@ -42,7 +42,7 @@ public class BaseActivity extends AppCompatActivity {
                 } else if (id == R.id.nav_account) {
                     startActivity(new Intent(BaseActivity.this, MyAccount.class));
                 } else if (id == R.id.nav_settings) {
-                    startActivity(new Intent(BaseActivity.this, Login.class));
+                    startActivity(new Intent(BaseActivity.this, Setting.class));
                 } else if (id == R.id.nav_logout) {
                     FirebaseAuth.getInstance().signOut();
                     Intent intent = new Intent(getApplicationContext(), Login.class);
