@@ -40,7 +40,7 @@ public class BaseActivity extends AppCompatActivity {
                 if (id == R.id.nav_home) {
                     startActivity(new Intent(BaseActivity.this, MainActivity.class));
                 } else if (id == R.id.nav_account) {
-                    startActivity(new Intent(BaseActivity.this, AddJournal.class));
+                    startActivity(new Intent(BaseActivity.this, MyAccount.class));
                 } else if (id == R.id.nav_settings) {
                     startActivity(new Intent(BaseActivity.this, Login.class));
                 } else if (id == R.id.nav_logout) {

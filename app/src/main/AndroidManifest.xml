@@ -39,6 +39,10 @@
             android:name=".JournalActivity"
             android:theme="@style/Base.Theme.AppCompat.Light.DarkActionBar"
             android:label="" />
+        <activity android:name=".MyAccount"
+            android:theme="@style/Base.Theme.AppCompat.Light.DarkActionBar"
+            android:label="" />
+
 
         <meta-data
             android:name="preloaded_fonts"
