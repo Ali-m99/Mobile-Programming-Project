@@ -40,6 +40,17 @@ public class AddJournal extends BaseActivity {
         journalTitle = findViewById(R.id.journal_title);
         journalBody = findViewById(R.id.journal_body);
 
+        // Check if we're in edit mode
+        String existingTitle = getIntent().getStringExtra("title");
+        String existingBody = getIntent().getStringExtra("body");
+        String existingJournalId = getIntent().getStringExtra("journalId");
+
+        if (existingTitle != null && existingBody != null) {
+            // We're in edit mode
+            journalTitle.setText(existingTitle);
+            journalBody.setText(existingBody);
+        }
+
         button.setOnClickListener(v -> {
             String title = journalTitle.getText().toString();
             String body = journalBody.getText().toString();
@@ -48,10 +59,16 @@ public class AddJournal extends BaseActivity {
                 toast = Toast.makeText(getApplicationContext(), "Title or body cannot be empty!", Toast.LENGTH_SHORT);
                 toast.show();
             } else {
-                saveJournalToDatabase(reference, title, body);
+                if (existingJournalId != null) {
+                    // We're in edit mode, so update the existing journal entry
+                    updateJournalEntry(reference, existingJournalId, title, body);
+                } else {
+                    // We're in add mode, so create a new journal entry
+                    saveJournalToDatabase(reference, title, body);
+                }
                 toast = Toast.makeText(getApplicationContext(), "Journal entry saved!", Toast.LENGTH_SHORT);
                 toast.show();
-                Intent intent = new Intent(this, BaseActivity.class);
+                Intent intent = new Intent(this, MainActivity.class);
                 startActivity(intent);
             }
         });
@@ -70,5 +87,15 @@ public class AddJournal extends BaseActivity {
         if (journalId != null) {
             reference.child("journal").child(journalId).setValue(journalEntry);
         }
+    }
+
+    private void updateJournalEntry(DatabaseReference reference, String journalId, String title, String body) {
+        // Map to hold the title and body
+        Map<String, String> journalEntry = new HashMap<>();
+        journalEntry.put("title", title);
+        journalEntry.put("body", body);
+
+        // Update the journal entry in the database under the existing ID
+        reference.child("journal").child(journalId).setValue(journalEntry);
     }
 }

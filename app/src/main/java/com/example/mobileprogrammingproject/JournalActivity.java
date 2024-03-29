@@ -1,5 +1,6 @@
 package com.example.mobileprogrammingproject;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.ScrollView;
@@ -43,6 +44,15 @@ public class JournalActivity extends  BaseActivity {
         journalTitle.setText(title);
         journalBody.setText(body);
 
+        editButton.setOnClickListener(v -> {
+            Intent intent = new Intent(this, AddJournal.class);
+            intent.putExtra("title", title);
+            intent.putExtra("body", body);
+            intent.putExtra("journalId", journalId);
+            startActivity(intent);
+        });
+
+
         // The delete button will delete the journal entry from the database and on success, take the user back to the MainActivity
         deleteButton.setOnClickListener(v -> {
             deleteJournalEntry(journalId);
@@ -50,9 +60,11 @@ public class JournalActivity extends  BaseActivity {
         });
     }
 
+
     private void deleteJournalEntry(String journalId) {
         // Get the journal entry from the database and remove it
         reference = FirebaseDatabase.getInstance().getReference("users").child(user.getUid()).child("data").child("journal");
         reference.child(journalId).removeValue();
     }
+
 }
