@@ -6,4 +6,12 @@
     </style>
 
     <style name="Theme.MobileProgrammingProject" parent="Base.Theme.MobileProgrammingProject" />
+
+    <style name="nightModeSwitch" parent="Theme.AppCompat.Light">
+
+       <item name="colorSwitchThumbNormal">#FFFFFF</item>
+        <item name="android:colorForeground">#99FFFFFF</item>
+
+
+    </style>
 </resources>
