@@ -2,14 +2,18 @@ package com.example.mobileprogrammingproject;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -39,6 +43,32 @@ public class MyAccount extends BaseActivity{
 
         // Get the user's email and save it to the database
         reference = FirebaseDatabase.getInstance().getReference("users").child(user.getUid()).child("data");
+
+        // Grab the edit text fields
+        firstName = findViewById(R.id.firstName_details);
+        lastName = findViewById(R.id.lastName_details);
+        phoneNumber = findViewById(R.id.phoneNumber_details);
+        address = findViewById(R.id.address_details);
+        saveButton = findViewById(R.id.button_details);
+
+        reference.child("user_details").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    Map<String, String> userDetails = (Map<String, String>) dataSnapshot.getValue();
+                    firstName.setText(userDetails.get("firstName"));
+                    lastName.setText(userDetails.get("lastName"));
+                    phoneNumber.setText(userDetails.get("phoneNumber"));
+                    address.setText(userDetails.get("address"));
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // Failed to read value
+                Log.w("MyAccount", "Failed to read value.", databaseError.toException());
+            }
+        });
 
         // Grab the edit text fields
         email = findViewById(R.id.email_details);
