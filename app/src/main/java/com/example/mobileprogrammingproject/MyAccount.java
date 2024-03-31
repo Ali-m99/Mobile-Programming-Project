@@ -7,6 +7,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -21,6 +23,7 @@ import java.util.Map;
 public class MyAccount extends BaseActivity{
 
     DatabaseReference reference;
+    DatabaseReference emailReference;
     FirebaseAuth auth;
     FirebaseUser user;
 
@@ -41,8 +44,9 @@ public class MyAccount extends BaseActivity{
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
 
-        // Get the user's email and save it to the database
         reference = FirebaseDatabase.getInstance().getReference("users").child(user.getUid()).child("data");
+        emailReference = FirebaseDatabase.getInstance().getReference("users").child(user.getUid()).child("data").child("email");
+
 
         // Grab the edit text fields
         firstName = findViewById(R.id.firstName_details);
@@ -53,18 +57,36 @@ public class MyAccount extends BaseActivity{
 
         reference.child("user_details").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
                     Map<String, String> userDetails = (Map<String, String>) dataSnapshot.getValue();
-                    firstName.setText(userDetails.get("firstName"));
-                    lastName.setText(userDetails.get("lastName"));
-                    phoneNumber.setText(userDetails.get("phoneNumber"));
-                    address.setText(userDetails.get("address"));
+                    if (userDetails != null) {
+                        firstName.setText(userDetails.get("firstName"));
+                        lastName.setText(userDetails.get("lastName"));
+                        phoneNumber.setText(userDetails.get("phoneNumber"));
+                        address.setText(userDetails.get("address"));
+                    }
                 }
             }
 
             @Override
-            public void onCancelled(DatabaseError databaseError) {
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                // Failed to read value
+                Log.w("MyAccount", "Failed to read value.", databaseError.toException());
+            }
+        });
+
+        emailReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    String emailText = dataSnapshot.getValue(String.class);
+                    email.setText(emailText);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
                 // Failed to read value
                 Log.w("MyAccount", "Failed to read value.", databaseError.toException());
             }

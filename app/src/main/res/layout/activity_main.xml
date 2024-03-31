@@ -14,6 +14,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@drawable/background_register"
         android:orientation="vertical"
         android:gravity="center"
         tools:context=".MainActivity">
@@ -30,23 +31,24 @@
 <!--        android:gravity="center"-->
 <!--        tools:context=".MainActivity">-->
 
-        <TextView
-            android:id="@+id/title_main"
-            android:layout_width="249dp"
-            android:layout_height="68dp"
-            android:text="@string/app_name"
-            android:textAlignment="center"
-            android:textColor="#535353"
-            android:textSize="48sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.552"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.038" />
+    <TextView
+        android:id="@+id/title_main"
+        android:layout_width="357dp"
+        android:layout_height="53dp"
+        android:fontFamily="@font/holtwood_one_sc"
+        android:text="@string/my_journal"
+        android:textAlignment="center"
+        android:textColor="#e9eef2"
+        android:textSize="34sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.555"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.088" />
 
-        <ScrollView
+    <ScrollView
             android:id="@+id/scrollview_main"
             android:layout_width="414dp"
             android:layout_height="493dp"
@@ -70,7 +72,7 @@
             android:id="@+id/add_journal_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@android:drawable/screen_background_light_transparent"
+            android:background="@android:color/transparent"
             android:contentDescription="@string/add_journal"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

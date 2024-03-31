@@ -4,6 +4,7 @@ import static android.content.ContentValues.TAG;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
+import androidx.core.content.res.ResourcesCompat;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -88,6 +89,8 @@ public class MainActivity extends BaseActivity {
                 // Clear existing views before adding new ones
                 linearLayout.removeAllViews();
 
+                Typeface typeface = ResourcesCompat.getFont(MainActivity.this, R.font.holtwood_one_sc);
+
                 // Loop through the journal entries
                 for (DataSnapshot journalSnapshot : dataSnapshot.getChildren()) {
                     // Get the journal entry as a Map
@@ -105,6 +108,7 @@ public class MainActivity extends BaseActivity {
                     cardView.setRadius(50);  // In pixels
                     cardView.setContentPadding(0, 200, 0, 200);
                     cardView.setClickable(true);
+                    cardView.setCardBackgroundColor(Color.parseColor("#32b0e6"));
 
                     // Create a new TextView to put in the CardView
                     TextView textView = new TextView(MainActivity.this);
@@ -113,10 +117,11 @@ public class MainActivity extends BaseActivity {
                             CardView.LayoutParams.WRAP_CONTENT));
                     textView.setText(title);  // Set the text to the journal entry's title
                     textView.setGravity(Gravity.CENTER);
-                    textView.setTextSize(30);
+                    textView.setTextSize(24);
                     textView.setAllCaps(true);
-                    textView.setTextColor(Color.BLACK);
-                    textView.setTypeface(null, Typeface.BOLD);
+                    textView.setTextColor(Color.parseColor("#e9eef2"));
+                    textView.setTypeface(typeface, Typeface.BOLD);
+
 
                     cardView.setOnClickListener(new View.OnClickListener() {
                         @Override

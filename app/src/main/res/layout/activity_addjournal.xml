@@ -14,6 +14,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@drawable/background_register"
         android:orientation="vertical"
         android:gravity="center"
         tools:context=".AddJournal">
@@ -36,7 +37,7 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/holtwood_one_sc"
         android:text="@string/create_new_journal_entry"
-        android:textColor="@color/black"
+        android:textColor="#e9eef2"
         android:textSize="34sp"
         android:gravity="center"
         app:layout_constraintBottom_toBottomOf="parent"
